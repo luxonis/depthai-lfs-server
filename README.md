@@ -8,3 +8,9 @@ This tool serves files stored in [Giftless LFS Server](https://github.com/datopi
 $ docker build -t depthai-lfs-server .
 $ docker run -v <path_to_lfs_files>:/storage -e STORAGE_PATH=/storage -p <custom_port>:8080 depthai-lfs-server
 ```
+
+```
+# edit docker-compose.yml
+$ docker-compose build
+$ docker-compose up
+```

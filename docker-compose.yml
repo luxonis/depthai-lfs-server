@@ -1,0 +1,9 @@
+services:
+  server:
+    build: .
+    environment:
+      STORAGE_PATH: /storage
+    volumes:
+      - <path>:/storage
+    ports:
+      - <port>:8080

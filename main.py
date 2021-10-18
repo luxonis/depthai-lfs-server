@@ -34,11 +34,11 @@ class LFSFileServer(BaseHTTPRequestHandler):
             repo_user, repo_name = self.path.split("/")[1:3]
             # not sure about this part below
             with open(f'{STORAGE_PATH}/{repo_user}/{repo_name}.git/{sha256}', 'rb') as file:
+                self.send_response(200)
+                self.send_header('Content-type', 'application/octet-stream')
+                self.send_header('Content-Disposition', f'attachment; filename="{os.path.basename(self.path)}"')
+                self.end_headers()
                 self.wfile.write(file.read())
-            self.send_response(200)
-            self.send_header('Content-type', 'application/octet-stream')
-            self.send_header('Content-Disposition', f'attachment; filename="{os.path.basename(self.path)}"')
-            self.end_headers()
         except:
             traceback.print_exc()
             msg = f"Unable to read a file content for SHA265: {sha256} and path: {self.path}"
