@@ -4,6 +4,7 @@ import traceback
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import urllib.request
 
+STORAGE_PATH = os.getenv("STORAGE_PATH")
 
 class LFSFileServer(BaseHTTPRequestHandler):
     def do_GET(self):
@@ -32,7 +33,7 @@ class LFSFileServer(BaseHTTPRequestHandler):
         try:
             repo_user, repo_name = self.path.split("/")[1:3]
             # not sure about this part below
-            with open(f'storage/{repo_user}/{repo_name}.git/{sha256}', 'rb') as file:
+            with open(f'{STORAGE_PATH}/{repo_user}/{repo_name}.git/{sha256}', 'rb') as file:
                 self.wfile.write(file.read())
             self.send_response(200)
             self.send_header('Content-type', 'application/octet-stream')
