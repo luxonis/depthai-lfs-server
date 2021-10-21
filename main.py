@@ -20,7 +20,7 @@ class LFSFileServer(BaseHTTPRequestHandler):
             return
         try:
             sha_line = resp.readlines()[1]
-            sha256 = sha_line.decode().lstrip("oid sha256:").rstrip('\n')
+            sha256 = sha_line.decode().replace("oid sha256:", '').rstrip('\n')
         except:
             msg = f"File content under {url} is not a valid LFS description file!"
             print(msg, file=sys.stderr)
